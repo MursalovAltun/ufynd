@@ -26,10 +26,7 @@ namespace WebApi
         {
             if (DOCKER_CONFIGURED)
             {
-                services.AddHangfire(options =>
-                    options.UsePostgreSqlStorage(Configuration.GetConnectionString("DefaultConnection")));
-
-                services.AddHangfireServer();
+                services.ConfigureHangfire(Configuration);
 
                 services.AddHostedService<JobsHostedService>();
             }
@@ -50,10 +47,11 @@ namespace WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                if (DOCKER_CONFIGURED)
-                {
-                    app.UseHangfireDashboard();
-                }
+            }
+            
+            if (DOCKER_CONFIGURED)
+            {
+                app.UseConfiguredHangfire(env);
             }
 
             app.UseConfiguredSwagger(env);

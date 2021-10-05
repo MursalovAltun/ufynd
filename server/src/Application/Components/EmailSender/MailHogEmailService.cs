@@ -42,7 +42,7 @@ namespace Application.Components.EmailSender
 
             if (request.Attachments != null && request.Attachments.Any())
             {
-                foreach (var attachment in ConvertToSendGridAttachments(request.Attachments))
+                foreach (var attachment in ConvertToAttachments(request.Attachments))
                 {
                     message.Attachments.Add(attachment);
                 }
@@ -62,7 +62,7 @@ namespace Application.Components.EmailSender
             await client.SendMailAsync(message);
         }
 
-        private static IEnumerable<Attachment> ConvertToSendGridAttachments(
+        private static IEnumerable<Attachment> ConvertToAttachments(
             IEnumerable<SendEmailRequestAttachment> attachments)
         {
             return attachments
@@ -96,7 +96,7 @@ namespace Application.Components.EmailSender
 
             if (request.Attachments != null && request.Attachments.Any())
             {
-                foreach (var attachment in ConvertToSendGridAttachments(request.Attachments))
+                foreach (var attachment in ConvertToAttachments(request.Attachments))
                 {
                     message.Attachments.Add(attachment);
                 }

@@ -27,6 +27,8 @@ namespace WebApi.HostedServices
             _hotelRatesReportJobOptions = hotelRatesReportJobOptions.Value;
         }
 
+        // This cannot be unit tested since Hangfire uses static methods that cannot be verified
+        // For real world application I would use Quartz.NET
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             using var scope = _serviceProvider.CreateScope();
@@ -35,9 +37,9 @@ namespace WebApi.HostedServices
 
             var hotelRates = await hotelRatesProvider!.GetAsync(_environment.WebRootPath);
 
-            RecurringJob.AddOrUpdate<IHotelRatesReportJob>(_hotelRatesReportJobOptions.JobId, 
+            RecurringJob.AddOrUpdate<IHotelRatesReportJob>(_hotelRatesReportJobOptions.JobId,
                 x => x.SendReportEmailsAsync(hotelRates),
-                Cron.Minutely);
+                _hotelRatesReportJobOptions.CronInterval);
 
             RecurringJob.Trigger(_hotelRatesReportJobOptions.JobId);
         }

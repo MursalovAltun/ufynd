@@ -6,5 +6,6 @@ namespace Application.Components.WebAssets
     {
         [Required] public string DirectoryName { get; set; }
         [Required] public string HotelRatesAssetName { get; set; }
+        [Required] public string HotelHtmlAssetName { get; set; }
     }
 }

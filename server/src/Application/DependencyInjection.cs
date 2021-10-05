@@ -18,8 +18,6 @@ namespace Application
 
             services.AddScoped<IFileSystem, FileSystem>();
 
-            services.AddHttpContextAccessor();
-            
             services.AddConfigurations(configuration);
 
             return services;

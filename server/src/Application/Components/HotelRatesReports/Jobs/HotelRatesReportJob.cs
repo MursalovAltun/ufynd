@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Application.Components.HotelRates.DTO;
 using Application.Components.HotelRatesReports.Abstractions;
 using Autofac.Extras.RegistrationAttributes.RegistrationAttributes;
-using Microsoft.Extensions.Options;
 
 namespace Application.Components.HotelRatesReports.Jobs
 {
@@ -19,7 +18,7 @@ namespace Application.Components.HotelRatesReports.Jobs
             _hotelRatesExcelReportBuilder = hotelRatesExcelReportBuilder;
             _hotelRatesExcelReportEmailNotificationService = hotelRatesExcelReportEmailNotificationService;
         }
-        
+
         public async Task SendReportEmailsAsync(IReadOnlyCollection<HotelWithRatesDto> hotelWithRates)
         {
             var report = _hotelRatesExcelReportBuilder.Build(hotelWithRates);

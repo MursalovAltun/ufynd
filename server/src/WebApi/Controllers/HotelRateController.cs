@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Components.HotelRates.Abstractions;
 using Application.Components.HotelRates.DTO;
 using Application.Components.HotelRates.Requests;
-using Hangfire;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,7 +29,7 @@ namespace WebApi.Controllers
         public async Task<IEnumerable<HotelWithRatesDto>> GetList([FromQuery] HotelRatesFilterRequest request)
         {
             var hotelWithRates = await _hotelRatesProvider.GetAsync(_environment.WebRootPath);
-            
+
             return _hotelRatesService.GetHotelRates(hotelWithRates, request.HotelId, request.ArrivalDate);
         }
     }

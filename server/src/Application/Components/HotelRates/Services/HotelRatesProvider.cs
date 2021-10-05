@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Application.Components.HotelRates.Abstractions;
 using Application.Components.HotelRates.DTO;
@@ -33,7 +35,7 @@ namespace Application.Components.HotelRates.Services
             var hotelsRateJsonAssetPath =
                 Path.Combine(path, _webAssetsPathProvider.Get(_webAssetsOptions.HotelRatesAssetName));
 
-            var hotelsRatesJson = await _fileSystem.File.ReadAllTextAsync(Path.Combine(path, hotelsRateJsonAssetPath));
+            var hotelsRatesJson = await _fileSystem.File.ReadAllTextAsync(hotelsRateJsonAssetPath, Encoding.UTF8);
 
             return JsonConvert.DeserializeObject<IReadOnlyCollection<HotelWithRatesDto>>(hotelsRatesJson);
         }
